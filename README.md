@@ -202,5 +202,4 @@ ip-10-101-35-71.srv101.dsinternal.org    Ready    <none>                 2d3h   
 ```
 
 
-Conclusion
-Your Cluster should be up and running!!!!!!
+##### Conclusion : Your Cluster should be up and running!!!!!!
