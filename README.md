@@ -12,6 +12,7 @@ $ cat <<EOF | sudo tee /etc/modules-load.d/containerd.conf
 overlay
 br_netfilter
 EOF
+```
 
 2. Load modules:
 
