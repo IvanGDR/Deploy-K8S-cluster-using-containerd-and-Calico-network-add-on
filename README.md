@@ -5,7 +5,7 @@ For this exercise I am using Ubuntu 20.04 and I will install K8S 1.23.0
 
 ### The following steps (1-17) must be performed on all three nodes (1 control plane and 2 workers).
 
-Create configuration file for containerd:
+1.- Create configuration file for containerd:
 
 
 $ cat <<EOF | sudo tee /etc/modules-load.d/containerd.conf
