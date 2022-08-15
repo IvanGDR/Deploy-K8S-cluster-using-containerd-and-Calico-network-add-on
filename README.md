@@ -145,7 +145,7 @@ sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
 sudo chown $(id -u):$(id -g) $HOME/.kube/config
 ```
 
-20. Test access to cluster (should be not ready yet):
+20. Test access to cluster (should not be ready yet):
 ```
 $ kubectl get nodes
 ```
