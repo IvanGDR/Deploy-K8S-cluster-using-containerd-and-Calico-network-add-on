@@ -105,14 +105,13 @@ $ sudo apt-mark hold kubelet kubeadm kubectl
 #### In control plane only perform steps (18-23)
 
  
-
-initialising cluster
+##### initialising cluster
 
 18. Initialize the Kubernetes cluster on the control plane node using kubeadm:
-
-
+```
 $ sudo kubeadm init --pod-network-cidr 192.168.0.0/16 --kubernetes-version 1.23.0
-
+```
+```
 I0627 13:09:14.363678   13411 version.go:248] remote version is much newer: v1.24.2; falling back to: stable-1.15
 [init] Using Kubernetes version: v1.23.0
 [preflight] Running pre-flight checks
@@ -133,54 +132,75 @@ Then you can join any number of worker nodes by running the following on each as
 
 kubeadm join 10.101.33.147:6443 --token qe67n8.fckzqwmllwyrpqs2 \
     --discovery-token-ca-cert-hash sha256:365374078c253404dfb46e539e8ae7a40fd20136854c29722bad973696d37d8a
+```
+
 19. Set kubectl access:
-
-
+```
 $ mkdir -p $HOME/.kube
+```
+```
 sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+```
+```
 sudo chown $(id -u):$(id -g) $HOME/.kube/config
+```
+
 20. Test access to cluster (should be not ready yet):
-
-
+```
 $ kubectl get nodes
-
+```
+```
 NAME                                     STATUS       ROLES                  AGE    VERSION
 ip-10-101-33-147.srv101.dsinternal.org   Not Ready    control-plane,master   2d3h   v1.23.0
-Install the Calico Network Add-On
+```
+
+##### Install the Calico Network Add-On
 
 21. On the control plane node, install Calico Networking:
-
-
+```
 $ kubectl apply -f <https://docs.projectcalico.org/manifests/calico.yaml>
+```
+
 22. Check status of the control plane node (wait, control plane will be in ready status):
-
-
+```
 $ kubectl get nodes
-
+```
+```
 NAME                                     STATUS   ROLES                  AGE    VERSION
 ip-10-101-33-147.srv101.dsinternal.org   Ready    control-plane,master   2d3h   v1.23.0
-Getting token for joining worker nodes
+```
+
+##### Getting token for joining worker nodes
 
 23. In the control plane node, create the token and copy the kubeadm join command (NOTE:The join command can also be found in the output from kubeadm init command):
-
-
+```
 $ kubeadm token create --print-join-command
-
+```
+```
 kubeadm join 10.101.33.147:6443 --token qe67n8.fckzqwmllwyrpqs2 --discovery-token-ca-cert-hash sha256:365374078c253404dfb46e539e8ae7a40fd20136854c29722bad973696d37d8a
-Perform steps (24-25) in Worker Nodes only
+```
+
+#### Perform steps (24-25) in Worker Nodes only
 
 24. In both worker nodes, paste the kubeadm join command to join the cluster. Use sudo to run it as root:
+```
+$ sudo kubeadm join 10.101.33.147:6443 --token qe67n8.fckzqwmllwyrpqs2 --discovery-token-ca-cert-hash 
+```
+```
+sha256:365374078c253404dfb46e539e8ae7a40fd20136854c29722bad973696d37d8a
+```
 
-
-$ sudo kubeadm join 10.101.33.147:6443 --token qe67n8.fckzqwmllwyrpqs2 --discovery-token-ca-cert-hash sha256:365374078c253404dfb46e539e8ae7a40fd20136854c29722bad973696d37d8a
 25. In the control plane node, view cluster status (Note: You may have to wait a few moments to allow all nodes to become ready):
-
-
+```
 $ kubectl get nodes
-
+```
+```
 NAME                                     STATUS   ROLES                  AGE    VERSION
 ip-10-101-32-196.srv101.dsinternal.org   Ready    <none>                 2d3h   v1.23.0
 ip-10-101-33-147.srv101.dsinternal.org   Ready    control-plane,master   2d3h   v1.23.0
 ip-10-101-35-71.srv101.dsinternal.org    Ready    <none>                 2d3h   v1.23.0
+```
+
+
 Conclusion
 Your Cluster should be up and running!!!!!!
