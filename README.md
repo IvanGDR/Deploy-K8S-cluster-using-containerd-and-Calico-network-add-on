@@ -57,7 +57,7 @@ $ sudo systemctl restart containerd
 
 9. Verify that containerd is running:
 ```
-sudo systemctl status containerd
+$ sudo systemctl status containerd
 ```
 
 10. Disable swap:
@@ -139,10 +139,10 @@ kubeadm join 10.101.33.147:6443 --token qe67n8.fckzqwmllwyrpqs2 \
 $ mkdir -p $HOME/.kube
 ```
 ```
-sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
+$ sudo cp -i /etc/kubernetes/admin.conf $HOME/.kube/config
 ```
 ```
-sudo chown $(id -u):$(id -g) $HOME/.kube/config
+$ sudo chown $(id -u):$(id -g) $HOME/.kube/config
 ```
 
 20. Test access to cluster (should not be ready yet):
@@ -180,15 +180,15 @@ $ kubeadm token create --print-join-command
 kubeadm join 10.101.33.147:6443 --token qe67n8.fckzqwmllwyrpqs2 --discovery-token-ca-cert-hash sha256:365374078c253404dfb46e539e8ae7a40fd20136854c29722bad973696d37d8a
 ```
 
-#### Perform steps (24-25) in Worker Nodes only
+#### Perform step (24) in Worker Nodes only
 
 24. In both worker nodes, paste the kubeadm join command to join the cluster. Use sudo to run it as root:
 ```
 $ sudo kubeadm join 10.101.33.147:6443 --token qe67n8.fckzqwmllwyrpqs2 --discovery-token-ca-cert-hash 
-```
-```
 sha256:365374078c253404dfb46e539e8ae7a40fd20136854c29722bad973696d37d8a
 ```
+
+#### In Control Plane
 
 25. In the control plane node, view cluster status (Note: You may have to wait a few moments to allow all nodes to become ready):
 ```
